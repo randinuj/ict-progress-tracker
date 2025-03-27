@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICT Progress Tracker</title>
+</head>
+<body>
+    <h2>Enter Your ICT Progress</h2>
+    <label for="type">Type:</label>
+    <select id="type">
+        <option value="Daily Quiz">Daily Quiz</option>
+        <option value="Weekly Paper">Weekly Paper</option>
+        <option value="Past Paper">Past Paper</option>
+        <option value="Main Paper">Main Paper</option>
+    </select>
+    <br>
+    <label for="score">Score:</label>
+    <input type="number" id="score" min="0" max="100">
+    <br>
+    <label for="remarks">Remarks:</label>
+    <input type="text" id="remarks">
+    <br>
+    <button onclick="submitData()">Submit</button>
+
+    <script>
+        function submitData() {
+            const type = document.getElementById("type").value;
+            const score = document.getElementById("score").value;
+            const remarks = document.getElementById("remarks").value;
+
+            fetch("https://script.google.com/macros/s/AKfycbwAYQSpnpnz3zKRr_PuVTMb231NQ20qEuxWCPlVU8DSB7XJATdgVlC4iMME2c_-J2s/exec", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ type, score, remarks })
+            })
+            .then(response => response.text())
+            .then(data => alert("Data Saved: " + data))
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
